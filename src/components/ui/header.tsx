@@ -4,6 +4,7 @@ import { Card, CardContent } from "./card";
 
 const Header = () => {
   return (
+    <header>
     <Card className="flex items-center justify-between p-[1.875rem]">
       <Button size="icon" variant="outline">
         <MenuIcon />
@@ -17,6 +18,7 @@ const Header = () => {
         <ShoppingCart />
       </Button>
     </Card>
+    </header>
   );
 };
 
