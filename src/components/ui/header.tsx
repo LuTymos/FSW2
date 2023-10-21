@@ -1,7 +1,10 @@
+"use client";
+
 import {
   HomeIcon,
   ListOrderedIcon,
   LogInIcon,
+  LogOutIcon,
   MenuIcon,
   PercentCircleIcon,
   PercentIcon,
@@ -17,8 +20,22 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Avatar, AvatarImage } from "./avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
+import { Separator } from "./separator";
 
 const Header = () => {
+  const { status, data } = useSession();
+
+  const handleLogOut = async () => {
+    await signOut();
+  };
+
+  const handleLoginClick = async () => {
+    await signIn();
+  };
+
   return (
     <header>
       <Card className="flex items-center justify-between p-[1.875rem]">
@@ -34,14 +51,35 @@ const Header = () => {
               Menu
             </SheetHeader>
 
+            {status === "authenticated" && data?.user && (
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2 py-4">
+                  <Avatar>
+                    <AvatarFallback>
+                      {data?.user.name?.[0].toUpperCase()}
+                    </AvatarFallback>
+
+                    {data.user.image && <AvatarImage src={data.user.image} />}
+                  </Avatar>
+                  <p className="font-medium">{data.user.name}</p>
+                </div>
+                <Separator />
+              </div>
+            )}
+
             <div className="mt-2 flex flex-col gap-3">
-              <Button
-                variant="outline"
-                className="w-full justify-start gap-2 text-left"
-              >
-                <LogInIcon size={16} />
-                Fazer Login
-              </Button>
+              {status === "unauthenticated" && (
+                <Button
+                  onClick={handleLoginClick}
+                  variant="outline"
+                  className="w-full justify-start gap-2 text-left"
+                >
+                  <LogInIcon size={16} />
+                  Fazer Login
+                </Button>
+              )}
+
+              
 
               <Button
                 variant="outline"
@@ -66,6 +104,17 @@ const Header = () => {
                 <ListOrderedIcon size={16} />
                 Catálogo
               </Button>
+
+              {status === "authenticated" && (
+                <Button
+                  onClick={handleLogOut}
+                  variant="outline"
+                  className="w-full justify-start gap-2 text-left"
+                >
+                  <LogOutIcon size={16} />
+                  Sair
+                </Button>
+              )}
             </div>
           </SheetContent>
         </Sheet>
