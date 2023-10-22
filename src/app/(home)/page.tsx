@@ -31,29 +31,29 @@ export default async function Home() {
   })
 
   return (
-    <main className="">
+    <main className="flex flex-col gap-8 py-8">
       <PromoBanner alt="Até 55% de desconto esse mês" src="/banner-55off.png"/>
       
       {/* categorias */}
-      <section className="mt-8 px-5">
+      <section className="px-5">
         <Categories />
       </section>
       {/* Lista de ofertas */}
-      <section className="mt-8">
+      <section>
         <ProductList title="ofertas" products={ofertas} />
       </section>
 
       <PromoBanner alt="Até 55% de desconto em Mouses" src="/banner-mouses.png"/>
 
       {/* Lista de Teclados */}
-      <section className="mt-8">
+      <section >
         <ProductList title="Teclados" products={teclados} />
       </section>
 
       <PromoBanner alt="Até 20% de desconto em fones" src="/banner-fones.png"/>
 
       {/* Lista de Mouses */}
-      <section className="mt-8">
+      <section>
         <ProductList title="Mouses" products={mouses} />
       </section>
     </main>

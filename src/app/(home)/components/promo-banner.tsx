@@ -7,7 +7,7 @@ interface PromoBannerProps {
 
 const PromoBanner = ({src, alt}:PromoBannerProps) => {
     return ( 
-        <div className="my-8">
+        <div className="">
         <Image
           src={src}
           height={0}
