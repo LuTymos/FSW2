@@ -1,10 +1,11 @@
 import Image from "next/image";
 
 interface PromoBannerProps {
-    src: string
+    src: string,
+    alt: string
 }
 
-const PromoBanner = ({src}:PromoBannerProps) => {
+const PromoBanner = ({src, alt}:PromoBannerProps) => {
     return ( 
         <div className="my-8">
         <Image
@@ -13,7 +14,7 @@ const PromoBanner = ({src}:PromoBannerProps) => {
           width={0}
           className="h-auto w-full px-5"
           sizes="100vw"
-          alt="Até 55% de desconto esse mês"
+          alt={alt}
         />
       </div>
      );

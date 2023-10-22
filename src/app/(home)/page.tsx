@@ -32,7 +32,8 @@ export default async function Home() {
 
   return (
     <main className="">
-      <PromoBanner src="/banner-55off.png"/>
+      <PromoBanner alt="Até 55% de desconto esse mês" src="/banner-55off.png"/>
+      
       {/* categorias */}
       <section className="mt-8 px-5">
         <Categories />
@@ -42,14 +43,14 @@ export default async function Home() {
         <ProductList title="ofertas" products={ofertas} />
       </section>
 
-      <PromoBanner src="/banner-mouses.png"/>
+      <PromoBanner alt="Até 55% de desconto em Mouses" src="/banner-mouses.png"/>
 
       {/* Lista de Teclados */}
       <section className="mt-8">
         <ProductList title="Teclados" products={teclados} />
       </section>
 
-      <PromoBanner src="/banner-fones.png"/>
+      <PromoBanner alt="Até 20% de desconto em fones" src="/banner-fones.png"/>
 
       {/* Lista de Mouses */}
       <section className="mt-8">
