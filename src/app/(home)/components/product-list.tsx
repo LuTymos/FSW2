@@ -4,7 +4,7 @@ import { Product } from "@prisma/client";
 
 interface ProductListProps {
   products: Product[];
-  title: string;
+  title?: string;
 }
 
 const ProductList = ({ products, title }: ProductListProps) => {
