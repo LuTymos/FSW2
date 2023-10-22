@@ -5,18 +5,17 @@ import { db } from "@/lib/prisma";
 import ProductList from "./components/product-list";
 
 export default async function Home() {
-
   const ofertas = await db.product.findMany({
-    where:{
-      discountPercentage:{
-        gt: 0
-      }
-    }
-  })
+    where: {
+      discountPercentage: {
+        gt: 0,
+      },
+    },
+  });
 
   return (
     <main className="">
-      <div>
+      <div className="mt-5">
         <Image
           src="/banner-55off.png"
           height={0}
@@ -30,10 +29,21 @@ export default async function Home() {
       <section className="mt-8 px-5">
         <Categories />
       </section>
-
+      {/* Lista de ofertas */}
       <section className="mt-8">
-        <ProductList title="ofertas" products={ofertas}/>
+        <ProductList title="ofertas" products={ofertas} />
       </section>
+
+      <div className="my-8">
+        <Image
+          src="/banner-mouses.png"
+          height={0}
+          width={0}
+          className="h-auto w-full px-5"
+          sizes="100vw"
+          alt="Até 55% de desconto esse mês"
+        />
+      </div>
     </main>
   );
 }
