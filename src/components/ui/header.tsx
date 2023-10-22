@@ -14,6 +14,7 @@ import { Button } from "./button";
 import { Card, CardContent } from "./card";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -24,6 +25,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Separator } from "./separator";
+import Link from "next/link";
 
 const Header = () => {
   const { status, data } = useSession();
@@ -79,15 +81,17 @@ const Header = () => {
                 </Button>
               )}
 
-              
-
-              <Button
-                variant="outline"
-                className="w-full justify-start gap-2 text-left"
-              >
-                <HomeIcon size={16} />
-                Início
-              </Button>
+              <SheetClose>
+                <Link href="/">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-2 text-left"
+                  >
+                    <HomeIcon size={16} />
+                    Início
+                  </Button>
+                </Link>
+              </SheetClose>
 
               <Button
                 variant="outline"
@@ -97,13 +101,17 @@ const Header = () => {
                 Ofertas
               </Button>
 
-              <Button
-                variant="outline"
-                className="w-full justify-start gap-2 text-left"
-              >
-                <ListOrderedIcon size={16} />
-                Catálogo
-              </Button>
+              <SheetClose>
+                <Link href="/catalog">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-2 text-left"
+                  >
+                    <ListOrderedIcon size={16} />
+                    Catálogo
+                  </Button>
+                </Link>
+              </SheetClose>
 
               {status === "authenticated" && (
                 <Button
