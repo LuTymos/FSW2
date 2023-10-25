@@ -3,6 +3,7 @@ import { Product } from "@prisma/client";
 import { ArrowDownIcon } from "lucide-react";
 import Image from "next/image";
 import { Badge } from "./badge";
+import Link from "next/link";
 
 interface ProductItemProps {
   product: ProductWithTotalPrice;
@@ -10,6 +11,7 @@ interface ProductItemProps {
 
 const ProductItem = ({ product }: ProductItemProps) => {
   return (
+    <Link href={`/product/${product.slug}`}>
     <div className="flex flex-col gap-4">
       <div className=" relative flex h-[170px] w-full items-center justify-center rounded-lg bg-accent">
         <Image
@@ -53,6 +55,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 
