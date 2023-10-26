@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Categories from "./components/categories";
 import { db } from "@/lib/prisma";
-import ProductList from "./components/product-list";
+import ProductList from "../../components/ui/product-list";
 import PromoBanner from "./components/promo-banner";
 
 export default async function Home() {
@@ -15,25 +15,25 @@ export default async function Home() {
   });
 
   const teclados = await db.product.findMany({
-    where:{
-      category:{
-        slug: "keyboards"
-      }
-    }
-  })
+    where: {
+      category: {
+        slug: "keyboards",
+      },
+    },
+  });
 
   const mouses = await db.product.findMany({
-    where:{
-      category:{
-        slug: "mouses"
-      }
-    }
-  })
+    where: {
+      category: {
+        slug: "mouses",
+      },
+    },
+  });
 
   return (
     <main className="flex flex-col gap-8 py-8">
-      <PromoBanner alt="Até 55% de desconto esse mês" src="/banner-55off.png"/>
-      
+      <PromoBanner alt="Até 55% de desconto esse mês" src="/banner-55off.png" />
+
       {/* categorias */}
       <section className="px-5">
         <Categories />
@@ -43,14 +43,17 @@ export default async function Home() {
         <ProductList title="ofertas" products={ofertas} />
       </section>
 
-      <PromoBanner alt="Até 55% de desconto em Mouses" src="/banner-mouses.png"/>
+      <PromoBanner
+        alt="Até 55% de desconto em Mouses"
+        src="/banner-mouses.png"
+      />
 
       {/* Lista de Teclados */}
-      <section >
+      <section>
         <ProductList title="Teclados" products={teclados} />
       </section>
 
-      <PromoBanner alt="Até 20% de desconto em fones" src="/banner-fones.png"/>
+      <PromoBanner alt="Até 20% de desconto em fones" src="/banner-fones.png" />
 
       {/* Lista de Mouses */}
       <section>
