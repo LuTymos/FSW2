@@ -37,7 +37,7 @@ const ProductPage = async ({ params: { slug } }: ProductPageProps) => {
       <ProductImages imageUrls={product.imageUrls} name={product.name} />
       <ProductInfos product={computeProductTotalPrice(product)} />
       <ProductList
-        title="Produtos relacioandos"
+        title="Produtos recomendados"
         products={product.category.products}
       />
     </div>
