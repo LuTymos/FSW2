@@ -6,12 +6,27 @@ import CartItem from "./cartItem";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { Button } from "./button";
 import { Separator } from "./separator";
+import { ScrollArea } from "./scroll-area";
+import { createCheckout } from "@/actions/checkout";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
   const { products, subtotal, total, totalDiscount } = useContext(CartContext);
 
+  const handleFinishPurchase = async () => {
+    const checkout = await createCheckout(products);
+
+    const stripe = await loadStripe(
+      process.env.NEXT_PUBLIC_NEXT_STRIPE_PUBLIC_KEY,
+    );
+
+    stripe?.redirectToCheckout({
+      sessionId: checkout.id,
+    });
+  };
+
   return (
-    <div className="">
+    <div className="flex h-full flex-col gap-8">
       <Badge
         className="w-fit gap-1 border-2 border-primary px-3 py-[0.375rem] text-base uppercase"
         variant={"outline"}
@@ -20,19 +35,21 @@ const Cart = () => {
         Carrinho
       </Badge>
 
-      <div className="flex flex-col gap-5">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <CartItem
-              key={product.id}
-              product={computeProductTotalPrice(product as any) as any}
-            />
-          ))
-        ) : (
-          <p className="text-center font-semibold">
-            Você ainda não tem produtos no carrinho
-          </p>
-        )}
+      <div className="flex h-full flex-col gap-5 overflow-hidden">
+        <ScrollArea className="h-full">
+          {products.length > 0 ? (
+            products.map((product) => (
+              <CartItem
+                key={product.id}
+                product={computeProductTotalPrice(product as any) as any}
+              />
+            ))
+          ) : (
+            <p className="text-center font-semibold">
+              Você ainda não tem produtos no carrinho
+            </p>
+          )}
+        </ScrollArea>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -57,6 +74,12 @@ const Cart = () => {
           <p>Total</p>
           <p>R$ {total.toFixed(2)}</p>
         </div>
+        <Button
+          className="mt-7 font-bold uppercase"
+          onClick={() => handleFinishPurchase()}
+        >
+          Finalizar compra
+        </Button>
       </div>
     </div>
   );
